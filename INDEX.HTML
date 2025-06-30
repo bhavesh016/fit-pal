@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="FitPal - Your complete health and fitness companion with BMI calculator">
+  <title>FitPal - Healthy Diet & Fitness</title>
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    
+
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="logo">FitPal</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#bmi">BMI</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <h1>Your Wellness Buddy</h1>
+    <p>Eat healthy, stay active, and track your progress with FitPal</p>
+    <a href="#bmi" class="cta-button">Start Now</a>
+  </section>
+
+  <!-- BMI Calculator -->
+  <section id="bmi" class="section">
+    <h2>BMI Calculator</h2>
+    <div class="bmi-container">
+      <div class="input-group">
+        <label for="height">Height (cm)</label>
+        <input type="number" id="height" placeholder="Enter height in centimeters" min="50" max="250" step="0.1" required>
+      </div>
+      <div class="input-group">
+        <label for="weight">Weight (kg)</label>
+        <input type="number" id="weight" placeholder="Enter weight in kilograms" min="20" max="300" step="0.1" required>
+      </div>
+      <button onclick="calculateBMI()">Calculate BMI</button>
+      <div id="bmi-result" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 FitPal. All rights reserved.</p>
+  </footer>
+
+  <!-- JS Logic -->
+  <script >
+    function calculateBMI() {
+      const height = parseFloat(document.getElementById('height').value) / 100;
+      const weight = parseFloat(document.getElementById('weight').value);
+      const resultDiv = document.getElementById('bmi-result');
+
+      if (!height || !weight || height <= 0 || weight <= 0) {
+        resultDiv.innerHTML = '<p class="error">Please enter valid height and weight</p>';
+        return;
+      }
+
+      const bmi = (weight / (height * height)).toFixed(2);
+      let result = '';
+      let color = '';
+
+      if (bmi < 18.5) {
+        result = 'Underweight';
+        color = '#3498db';
+      } else if (bmi < 24.9) {
+        result = 'Normal weight';
+        color = '#2ecc71';
+      } else if (bmi < 29.9) {
+        result = 'Overweight';
+        color = '#f39c12';
+      } else {
+        result = 'Obese';
+        color = '#e74c3c';
+      }
+
+      resultDiv.innerHTML = `
+        <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Your BMI is <strong>${bmi}</strong></p>
+        <p style="color: ${color}; font-weight: bold;">${result}</p>
+      `;
+    }
+ </script>
+
+
+</body>
+</html>
